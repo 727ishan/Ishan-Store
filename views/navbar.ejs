@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %> - IMP-store</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        /* Additional CSS for navbar */
+        body {
+            font-family: 'Poppins', Arial, sans-serif; /* Use Poppins font */
+            line-height: 1.6;
+            background-color: #f4f4f4; /* Light background color */
+            color: #333; /* Dark text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #3399cc; /* Header background color */
+            color: white; /* Header text color */
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-right: 1rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+
+        .cart-icon {
+            position: relative;
+            margin-left: auto;
+        }
+
+        .cart-icon img {
+            width: 30px; /* Adjust as needed */
+            height: auto;
+        }
+
+        .cart-notification {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><%= pageTitle %></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li class="cart-icon">
+                    <a href="/cart">
+                        <img src="/images/cart-icon.png" alt="Cart">
+                        <% if (cart.length > 0) { %>
+                            <span class="cart-notification"><%= cart.length %></span>
+                        <% } %>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Main content goes here -->
+</body>
+</html>

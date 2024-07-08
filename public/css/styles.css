@@ -1,0 +1,134 @@
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4; /* Example: Light background color */
+    /* background-image: url('https://img.freepik.com/free-vector/network-mesh-wire-digital-technology-background_1017-27428.jpg?w=826&t=st=1720252172~exp=1720252772~hmac=aa384c9a5655b7d79d48f5670584ced471e47da11c48177b8d820d931ae9f684'); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #333; /* Example: Dark text color */
+}
+
+header {
+    background-color: #3399cc; /* Example: Semi-transparent dark background */
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5em 1em;
+    transition: background-color 0.3s ease;
+}
+
+/* nav ul li a:hover {
+    background-color: #555;
+    border-radius: 4px;
+} */
+
+main {
+    padding: 2em 1em;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.product {
+    background-color: #ffffff68; /* Example: Light background for products */
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Updated border-radius for a softer look */
+    margin: 1em;
+    padding: 1.5em; /* Increased padding for better spacing */
+    width: calc(100% - 2em);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.product img {
+    max-width: 100%;
+    border-radius: 8px; /* Rounded corners for images */
+    display: block; /* Ensure image fits within parent container */
+    margin-bottom: 1em; /* Add space below image */
+}
+
+.product h2 {
+    margin: 0.5em 0 0.5em;
+    color: #333; /* Example: Dark heading color */
+    font-size: 1.4em; /* Increased font size for headings */
+    text-align: center; /* Center align heading */
+}
+
+.product p {
+    margin-bottom: 1em; /* Add space below paragraph */
+    color: #666; /* Example: Medium gray text color */
+    text-align: center; /* Center align text */
+}
+
+.product button {
+    display: inline-block;
+    padding: 0.75em 1.5em;
+    background-color: #3399cc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1em; /* Add space above button */
+    font-size: 1em; /* Adjust button font size */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.product button:hover {
+    background-color: #0e92d4;
+}
+
+footer {
+    background-color: rgba(51, 51, 51, 0.8); /* Example: Semi-transparent dark background */
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive styles */
+@media (min-width: 600px) {
+    .product {
+        width: calc(50% - 2em);
+    }
+}
+
+@media (min-width: 900px) {
+    .product {
+        width: calc(33.333% - 2em);
+    }
+}
