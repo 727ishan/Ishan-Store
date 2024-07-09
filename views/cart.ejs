@@ -175,7 +175,7 @@
                                 <p>Price: ₹<%= item.price %></p>
                                 <!-- Additional product details can be added here -->
                             </div>
-                            <form action="/" method="POST">
+                            <form action="/remove-from-cart" method="POST">
                                 <input type="hidden" name="productId" value="<%= item.id %>">
                                 <button type="submit">Remove</button>
                             </form>
