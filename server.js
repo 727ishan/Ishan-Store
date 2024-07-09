@@ -35,24 +35,11 @@ const sampleProducts = [
     { id: 16, name: "Future Bass Essentials Pack", price: 3700, imageUrl: 'https://preview.redd.it/0n44qe5nu5721.png?width=1264&format=png&auto=webp&s=72200ce1843f609c50cf374de9ad8aaac175e67f' },
 ];
 
-
-// { id: 4, name: 'Pink Akram', price: 9000, imageUrl: '/images/PinkAk.jpeg' },
-// { id: 5, name: 'Akram khan', price: 19000, imageUrl: '/images/PinkAk.jpeg' },
-
 const cart = [];
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', { products: sampleProducts, cart: cart }); // Pass the cart variable
 });
-
-// app.get('/shop', (req, res) => {
-//     res.render('shop', { products: sampleProducts });
-// });
-
-app.get('/shop', (req, res) => {
-    res.render('shop', { products: sampleProducts, cart: cart }); // Pass the cart variable here
-});
-
 
 app.post('/add-to-cart', (req, res) => {
     const productId = req.body.productId;
@@ -98,7 +85,7 @@ app.post('/remove-from-cart', (req, res) => {
     }
 });
 
-// Payment callback=
+// Payment callback
 app.post('/payment-callback', (req, res) => {
     const downloadLink = "https://bit.ly/1GB-testfile"; 
 
@@ -112,7 +99,6 @@ app.post('/payment-callback', (req, res) => {
         res.status(400).send('Payment failed. Please try again.');
     }
 });
-
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
