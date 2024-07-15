@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart - IMP-store</title>
     <link rel="stylesheet" href="/css/styles.css">
     <style>
-        /* Additional CSS for cart page */
         body {
-            font-family: 'Poppins', Arial, sans-serif; /* Use Poppins font */
+            font-family: 'Poppins', Arial, sans-serif;
             line-height: 1.6;
-            background-color: #f4f4f4; /* Light background color */
-            color: #333; /* Dark text color */
+            background-color: #f4f4f4;
+            color: #333;
             margin: 0;
             padding: 0;
         }
 
         header {
-            background-color: #3399cc; /* Header background color */
-            color: white; /* Header text color */
+            background-color: #3399cc;
+            color: white;
             padding: 1rem;
             text-align: center;
             display: flex;
@@ -71,7 +71,7 @@
         }
 
         main {
-            max-width: 800px; /* Limit main content width */
+            max-width: 800px;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -102,6 +102,11 @@
             height: auto;
             margin-right: 1rem;
             border-radius: 4px;
+        }
+
+        .cart-items li .product-details {
+            flex: 1;
+            margin-right: 1rem;
         }
 
         .cart-items li form {
@@ -143,17 +148,20 @@
         }
     </style>
 </head>
+
 <body>
     <header>
-        <h1><img src="/images/logo.png" alt="" style="width: 100px; height: auto; margin: 0 auto;" ></h1>
+        <h1><img src="/images/logo.png" alt="IMP Store Logo" style="width: 100px; height: auto;"></h1>
         <nav>
             <ul>
                 <li><a href="https://727ishan.github.io/IshanMusicProduction/index.html">Home</a></li>
                 <li><a href="/">Shop</a></li>
                 <li class="cart-icon">
                     <a href="/cart">
-                        <img src="/images/icons8-cart-64.png" alt="Cart"> 
-                        <div class="cart-notification"><%= cart.length %></div>
+                        <img src="/images/icons8-cart-64.png" alt="Cart">
+                        <div class="cart-notification">
+                            <%= cart.length %>
+                        </div>
                     </a>
                 </li>
             </ul>
@@ -161,32 +169,32 @@
     </header>
     <main>
         <div class="cart-items">
-            <% if (cart.length === 0) { %>
+            <% if (cart.length===0) { %>
                 <p>Your cart is currently empty.</p>
-            <% } else { %>
-                <ul>
-                    <% cart.forEach(item => { %>
-                        <li>
-                            <div>
+                <% } else { %>
+                    <ul>
+                        <% cart.forEach(item=> { %>
+                            <li>
                                 <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
-                            </div>
-                            <div>
-                                <h3><%= item.name %></h3>
-                                <p>Price: ₹<%= item.price %></p>
-                                <!-- Additional product details can be added here -->
-                            </div>
-                            <form action="/remove-from-cart" method="POST">
-                                <input type="hidden" name="productId" value="<%= item.id %>">
-                                <button type="submit">Remove</button>
-                            </form>
-                        </li>
-                    <% }) %>
-                </ul>
-                <div class="cart-total">
-                    <p>Total: ₹<%= cart.reduce((acc, item) => acc + item.price, 0) %></p>
-                    <button id="checkout-button">Checkout</button>
-                </div>
-            <% } %>
+                                <div class="product-details">
+                                    <h3>
+                                        <%= item.name %>
+                                    </h3>
+                                    <p>Price: ₹<%= item.price %>
+                                    </p>
+                                </div>
+                                <form action="/remove-from-cart" method="POST">
+                                    <input type="hidden" name="productId" value="<%= item.id %>">
+                                    <button type="submit">Remove</button>
+                                </form>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <div class="cart-total">
+                        <p>Total: ₹<%= cart.reduce((acc, item)=> acc + item.price, 0) %></p>
+                        <button id="checkout-button">Checkout</button>
+                    </div>
+                    <% } %>
         </div>
     </main>
     <footer hidden>
@@ -194,57 +202,54 @@
     </footer>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
-        // Cart.js
+ document.getElementById('checkout-button').addEventListener('click', async () => {
+    const response = await fetch('/create-order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const order = await response.json();
 
-        document.getElementById('checkout-button').addEventListener('click', async () => {
-            const response = await fetch('/create-order', {
+    const options = {
+        key: 'rzp_test_iZNBELNqkzg7fM',
+        amount: order.amount,
+        currency: order.currency,
+        name: 'IMP-store',
+        description: 'Test Transaction',
+        order_id: order.id,
+        handler: function (response) {
+            fetch('/payment-callback', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
-                }
-            });
-            const order = await response.json();
+                },
+                body: JSON.stringify(response)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Always redirect to payment-success page with purchased items
+                window.location.href = '/payment-success';
+            })
+          
+        },
+        prefill: {
+            name: 'John Doe',
+            email: 'john.doe@example.com',
+            contact: '9999999999'
+        },
+        theme: {
+            color: '#3399cc'
+        }
+    };
 
-            const options = {
-                key: 'rzp_test_iZNBELNqkzg7fM', // Replace with your Razorpay key
-                amount: order.amount,
-                currency: order.currency,
-                name: 'IMP-store',
-                description: 'Test Transaction',
-                order_id: order.id,
-                handler: function (response) {
-                    fetch('/payment-callback', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(response)
-                    })
-                    .then(response => {
-                        if (response.redirected) {
-                            window.location.href = response.url; // Redirect to payment success page
-                        } else {
-                            console.error('Unexpected response:', response);
-                            alert('Payment failed! Please try again.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error processing payment:', error);
-                        alert('Payment failed! Please try again later.');
-                    });
-                },
-                prefill: {
-                    name: 'John Doe',
-                    email: 'john.doe@example.com',
-                    contact: '9999999999'
-                },
-                theme: {
-                    color: '#3399cc'
-                }
-            };
-            const rzp1 = new Razorpay(options);
-            rzp1.open();
-        });
+    const rzp1 = new Razorpay(options);
+    rzp1.open();
+});
+
+
+
     </script>
 </body>
+
 </html>
