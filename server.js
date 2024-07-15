@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const Razorpay = require('razorpay');
- 
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -17,28 +17,15 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 const sampleProducts = [
-    { id: 1, name: 'Synthwave Essentials Pack', price: 5000, imageUrl: 'https://synthanatomy.com/wp-content/uploads/2022/04/AIR-Music-Tech-Akai-MPC-Instruments.001-678x381.jpeg' },
-    { id: 2, name: "Lo-Fi Beats Pack", price: 3000, imageUrl: 'https://preview.redd.it/0n44qe5nu5721.png?width=1264&format=png&auto=webp&s=72200ce1843f609c50cf374de9ad8aaac175e67f' },
-    { id: 3, name: 'EDM Essentials Pack', price: 10000, imageUrl: 'https://cdn.mos.cms.futurecdn.net/onpq9NFu4kos2ouKEatrgK-650-80.jpg.webp' },
-    { id: 4, name: "Trap Beats Pack", price: 6000, imageUrl: 'https://preview.redd.it/0n44qe5nu5721.png?width=1264&format=png&auto=webp&s=72200ce1843f609c50cf374de9ad8aaac175e67f' },
-    { id: 5, name: 'Vintage Drum Machine Pack', price: 4500, imageUrl: 'https://synthanatomy.com/wp-content/uploads/2022/04/AIR-Music-Tech-Akai-MPC-Instruments.001-678x381.jpeg' },
-    { id: 6, name: "Ambient Sounds Pack", price: 3200, imageUrl: 'https://preview.redd.it/0n44qe5nu5721.png?width=1264&format=png&auto=webp&s=72200ce1843f609c50cf374de9ad8aaac175e67f' },
-    { id: 7, name: 'Orchestral Strings Pack', price: 11000, imageUrl: 'https://cdn.mos.cms.futurecdn.net/onpq9NFu4kos2ouKEatrgK-650-80.jpg.webp' },
-    { id: 8, name: "Hip-Hop Drums Pack", price: 2800, imageUrl: 'https://preview.redd.it/0n44qe5nu5721.png?width=1264&format=png&auto=webp&s=72200ce1843f609c50cf374de9ad8aaac175e67f' },
-    { id: 9, name: 'Analog Synth Pack', price: 4800, imageUrl: 'https://synthanatomy.com/wp-content/uploads/2022/04/AIR-Music-Tech-Akai-MPC-Instruments.001-678x381.jpeg' },
-    { id: 10, name: "Dubstep Bass Pack", price: 2900, imageUrl: 'https://preview.redd.it/0n44qe5nu5721.png?width=1264&format=png&auto=webp&s=72200ce1843f609c50cf374de9ad8aaac175e67f' },
-    { id: 11, name: 'Analog Synth Pack', price: 9500, imageUrl: 'https://cdn.mos.cms.futurecdn.net/onpq9NFu4kos2ouKEatrgK-650-80.jpg.webp' },
-    { id: 12, name: "Psytrance Essentials Pack", price: 3400, imageUrl: 'https://preview.redd.it/0n44qe5nu5721.png?width=1264&format=png&auto=webp&s=72200ce1843f609c50cf374de9ad8aaac175e67f' },
-    { id: 13, name: 'Retro Drum Machine Pack', price: 5200, imageUrl: 'https://synthanatomy.com/wp-content/uploads/2022/04/AIR-Music-Tech-Akai-MPC-Instruments.001-678x381.jpeg' },
-    { id: 14, name: "Indie Rock Drums Pack", price: 3100, imageUrl: 'https://preview.redd.it/0n44qe5nu5721.png?width=1264&format=png&auto=webp&s=72200ce1843f609c50cf374de9ad8aaac175e67f' },
-    { id: 15, name: 'World Percussion Pack', price: 10200, imageUrl: 'https://cdn.mos.cms.futurecdn.net/onpq9NFu4kos2ouKEatrgK-650-80.jpg.webp' },
-    { id: 16, name: "Future Bass Essentials Pack", price: 3700, imageUrl: 'https://preview.redd.it/0n44qe5nu5721.png?width=1264&format=png&auto=webp&s=72200ce1843f609c50cf374de9ad8aaac175e67f' },
+    { id: 1, name: 'Synthwave Pack', price: 5000, imageUrl: 'https://synthanatomy.com/wp-content/uploads/2022/04/AIR-Music-Tech-Akai-MPC-Instruments.001-678x381.jpeg', downloadLink: 'https://bit.ly/1GB-testfile.zip' },
+    { id: 2, name: "Lo-Fi Beats Pack", price: 3000, imageUrl: 'https://preview.redd.it/0n44qe5nu5721.png?width=1264&format=png&auto=webp&s=72200ce1843f609c50cf374de9ad8aaac175e67f', downloadLink: 'https://file-examples.com/wp-content/storage/2017/02/zip_2MB.zip' },
+    { id: 3, name: "Lo-Fi Beats Pack", price: 3000, imageUrl: 'https://preview.redd.it/0n44qe5nu5721.png?width=1264&format=png&auto=webp&s=72200ce1843f609c50cf374de9ad8aaac175e67f', downloadLink: 'https://file-examples.com/wp-content/storage/2017/02/zip_2MB.zip' },
 ];
 
 const cart = [];
 
 app.get('/', (req, res) => {
-    res.render('index', { products: sampleProducts, cart: cart }); // Pass the cart variable
+    res.render('index', { products: sampleProducts, cart: cart });
 });
 
 app.post('/add-to-cart', (req, res) => {
@@ -56,24 +43,30 @@ app.get('/cart', (req, res) => {
     res.render('cart', { cart });
 });
 
+app.get('/payment-success', (req, res) => {
+    res.render('payment-success', { purchasedItems: cart });
+});
+
+app.get('/payment-failed', (req, res) => {
+    res.render('payment-failed');
+});
+
 app.post('/create-order', async (req, res) => {
-    const amount = cart.reduce((acc, item) => acc + item.price, 0);
-
-    const options = {
-        amount: amount * 100, // amount in the smallest currency unit
-        currency: 'INR',
-        receipt: 'order_rcptid_11'
-    };
-
     try {
+        const amount = cart.reduce((acc, item) => acc + item.price, 0) * 100;
+        const options = {
+            amount: amount,
+            currency: 'INR',
+            receipt: 'order_rcptid_11'
+        };
         const order = await razorpay.orders.create(options);
         res.json(order);
     } catch (error) {
-        res.status(500).send(error);
+        console.error('Error creating order:', error);
+        res.status(500).send('Error creating order. Please try again later.');
     }
 });
 
-// Item removal from cart
 app.post('/remove-from-cart', (req, res) => {
     const productId = req.body.productId;
     const index = cart.findIndex(item => item.id === parseInt(productId));
@@ -85,20 +78,24 @@ app.post('/remove-from-cart', (req, res) => {
     }
 });
 
-// Payment callback
 app.post('/payment-callback', (req, res) => {
-    const downloadLink = "https://bit.ly/1GB-testfile"; 
+    const paymentDetails = req.body;
 
-    const paymentSuccessful = true; 
+    // Always set this to true for testing purposes
+    const paymentSuccessful = true;
 
     if (paymentSuccessful) {
-        cart.length = 0;
+        const purchasedItems = [...cart]; // Pass the cart items directly
+        const downloadLinks = cart.map(item => item.DownloadLink); // Collect download links
+        cart.length = 0; // Clear the cart
 
-        res.render('payment-success', { downloadLink });
+        // Render the payment success page with purchased items and download links
+        res.render('payment-success', { purchasedItems, downloadLinks });
     } else {
-        res.status(400).send('Payment failed. Please try again.');
+        res.status(400).send('Payment failed.');
     }
 });
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
