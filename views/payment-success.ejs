@@ -2,19 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Success - IMP-store</title>
+    <title>Payment Successful</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        header {
+            margin-bottom: 20px;
+        }
+        .product-card {
+            display: inline-block;
+            width: 30%;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            background-color: white;
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #3399cc;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2979b0;
+        }
+        footer {
+            margin-top: 20px;
+            color: #666;
+        }
+        .product-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Payment Successful</h1>
+        <h1>Payment Successful!</h1>
     </header>
     <main>
-        <p>Thank you for your purchase! Click the link below to download your product.</p>
-        <a href="<%= downloadLink %>">Download Now</a>
+        <h2>Thank you for your purchase!</h2>
+        <p>Your payment was successful.</p>
+        <h3>Here are your purchased items:</h3>
+        <div class="product-grid">
+            <% purchasedItems.forEach(item => { %>
+                <div class="product-card">
+                    <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                    <h3><%= item.name %></h3>
+                    <p>Price: ₹<%= item.price %></p>
+                    <a class="btn" href="<%= item.DownloadLink %>">Download Item</a>
+                </div>
+            <% }) %>
+        </div>
+        <a class="btn" href="/">Go back to shop</a>
     </main>
-    <footer hidden>
+    <footer>
         <p>&copy; 2024 IMP-store</p>
     </footer>
 </body>
