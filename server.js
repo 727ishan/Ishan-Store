@@ -10,7 +10,7 @@ const razorpay = new Razorpay({
     key_id: 'rzp_test_iZNBELNqkzg7fM',
     key_secret: '0ONmbzhG6HmoXkYeXJPFydl1'
 });
-
+ 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
