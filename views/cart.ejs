@@ -202,51 +202,65 @@
     </footer>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
- document.getElementById('checkout-button').addEventListener('click', async () => {
-    const response = await fetch('/create-order', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    const order = await response.json();
-
-    const options = {
-        key: 'rzp_test_iZNBELNqkzg7fM',
-        amount: order.amount,
-        currency: order.currency,
-        name: 'IMP-store',
-        description: 'Test Transaction',
-        order_id: order.id,
-        handler: function (response) {
-            fetch('/payment-callback', {
+        document.getElementById('checkout-button').addEventListener('click', async () => {
+            const response = await fetch('/create-order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
+                }
+            });
+            const order = await response.json();
+
+            const options = {
+                key: 'rzp_test_iZNBELNqkzg7fM',
+                amount: order.amount,
+                currency: order.currency,
+                name: 'IMP-store',
+                description: 'Test Transaction',
+                order_id: order.id,
+                handler: function (response) {
+                    fetch('/payment-callback', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(response)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Always redirect to payment-success page with purchased items
+                            return fetch('/payment-success', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ purchasedItems: data.purchasedItems })
+                            });
+                        })
+                        .then(response => response.text())
+                        .then(html => {
+                            document.open();
+                            document.write(html);
+                            document.close();
+                        })
+                        // .catch(error => {
+                        //     console.error('Payment processing error:', error);
+                        //     alert('Payment failed! Please try again later.');
+                        // });
                 },
-                body: JSON.stringify(response)
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Always redirect to payment-success page with purchased items
-                window.location.href = '/payment-success';
-            })
-          
-        },
-        prefill: {
-            name: 'John Doe',
-            email: 'john.doe@example.com',
-            contact: '9999999999'
-        },
-        theme: {
-            color: '#3399cc'
-        }
-    };
+                prefill: {
+                    name: 'John Doe',
+                    email: 'john.doe@example.com',
+                    contact: '9999999999'
+                },
+                theme: {
+                    color: '#3399cc'
+                }
+            };
 
-    const rzp1 = new Razorpay(options);
-    rzp1.open();
-});
-
+            const rzp1 = new Razorpay(options);
+            rzp1.open();
+        });
 
 
     </script>
