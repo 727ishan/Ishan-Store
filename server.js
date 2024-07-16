@@ -10,7 +10,7 @@ const razorpay = new Razorpay({
     key_id: 'rzp_test_iZNBELNqkzg7fM',
     key_secret: '0ONmbzhG6HmoXkYeXJPFydl1'
 });
- 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
@@ -43,9 +43,11 @@ app.get('/cart', (req, res) => {
     res.render('cart', { cart });
 });
 
-app.get('/payment-success', (req, res) => {
-    res.render('payment-success', { purchasedItems: cart });
+app.post('/payment-success', (req, res) => {
+    const { purchasedItems } = req.body;
+    res.render('payment-success', { purchasedItems });
 });
+
 
 app.get('/payment-failed', (req, res) => {
     res.render('payment-failed');
@@ -80,20 +82,12 @@ app.post('/remove-from-cart', (req, res) => {
 
 app.post('/payment-callback', (req, res) => {
     const paymentDetails = req.body;
+    const paymentSuccessful = true; // Simulate payment success or failure based on your logic
 
-    // Always set this to true for testing purposes
-    const paymentSuccessful = true;
+    const purchasedItems = [...cart]; // Assume `cart` is where items are stored
+    cart.length = 0; // Clear the cart after purchase
 
-    if (paymentSuccessful) {
-        const purchasedItems = [...cart]; // Pass the cart items directly
-        const downloadLinks = cart.map(item => item.DownloadLink); // Collect download links
-        cart.length = 0; // Clear the cart
-
-        // Render the payment success page with purchased items and download links
-        res.render('payment-success', { purchasedItems, downloadLinks });
-    } else {
-        res.status(400).send('Payment failed.');
-    }
+    res.status(200).json({ success: paymentSuccessful, purchasedItems });
 });
 
 
