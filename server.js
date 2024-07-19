@@ -5,7 +5,7 @@ const Razorpay = require('razorpay');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer'); // Import nodemailer
 
-mongoose.connect('mongodb://localhost:27017/i-store', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://ishansinghchouhan0:m8ZuE4LHmVOHpRHz@cluster0.bevtv4v.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const orderSchema = new mongoose.Schema({
     name: String,
