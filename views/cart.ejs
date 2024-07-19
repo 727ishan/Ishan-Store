@@ -7,145 +7,236 @@
     <title>Cart - IMP-store</title>
     <link rel="stylesheet" href="/css/styles.css">
     <style>
-        body {
-            font-family: 'Poppins', Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+      body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
 
-        header {
-            background-color: #3399cc;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+header {
+    background-color: #3399cc;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            text-align: center;
-        }
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
 
-        nav ul li {
-            display: inline;
-            margin-right: 0rem;
-        }
+nav ul li {
+    display: inline;
+    margin-right: 0rem;
+}
 
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
 
-        .cart-icon {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-        }
+.cart-icon {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
 
-        .cart-icon img {
-            width: 30px;
-            height: 30px;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
+.cart-icon img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
 
-        .cart-notification {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: #ff4d4d;
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            font-size: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.cart-notification {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4d4d;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        main {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
 
-        .cart-items {
-            background-color: white;
-            border: 1px solid #ccc;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+.cart-items {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-        .cart-items ul {
-            list-style-type: none;
-            padding: 0;
-        }
+.cart-items ul {
+    list-style-type: none;
+    padding: 0;
+}
 
-        .cart-items li {
-            border-bottom: 1px solid #eee;
-            padding: 1rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+.cart-items li {
+    border-bottom: 1px solid #eee;
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-        .cart-items li img {
-            max-width: 100px;
-            height: auto;
-            margin-right: 1rem;
-            border-radius: 4px;
-        }
+.cart-items li img {
+    max-width: 100px;
+    height: auto;
+    margin-right: 1rem;
+    border-radius: 4px;
+}
 
-        .cart-items li .product-details {
-            flex: 1;
-            margin-right: 1rem;
-        }
+.cart-items li .product-details {
+    flex: 1;
+    margin-right: 1rem;
+}
 
-        .cart-items li form {
-            display: inline;
-            margin-left: auto;
-        }
+.cart-items li form {
+    display: inline;
+    margin-left: auto;
+}
 
-        .cart-items button {
-            background-color: #3399cc;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            border-radius: 4px;
-        }
+.cart-items button {
+    background-color: #3399cc;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
 
-        .cart-items button:hover {
-            background-color: #2677a6;
-        }
+.cart-items button:hover {
+    background-color: #2677a6;
+}
 
-        .cart-total {
-            margin-top: 2rem;
-            text-align: right;
-        }
+.cart-total {
+    margin-top: 2rem;
+    text-align: right;
+}
 
-        .cart-total p {
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
+.cart-total p {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
 
-        footer {
-            text-align: center;
-            margin-top: 2rem;
-            color: #666;
-        }
+footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: #666;
+}
 
-        footer p {
-            margin: 0;
-        }
+footer p {
+    margin: 0;
+}
+
+/* Form Styling */
+#user-details-form {
+    margin-top: 20px;
+}
+
+#user-details-form div {
+    margin-bottom: 15px;
+}
+
+#user-details-form label {
+    display: block;
+    font-weight: bold;
+}
+
+#user-details-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* General Form Styling */
+#user-details-form div {
+    margin-bottom: 15px;
+}
+
+/* Highlighted Email Section */
+.form-group {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.form-group input {
+    width: calc(100% - 20px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group input:focus {
+    border-color: #3399cc;
+    outline: none;
+}
+
+.form-group .error {
+    color: red;
+    font-size: 0.9rem;
+    display: block;
+    margin-top: 5px;
+}
+
+.email-info {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* Highlighting the email section */
+#email:invalid {
+    border-color: rgba(255, 0, 0, 0.49);
+}
+
+#email:valid {
+    border-color: green;
+}
+
+
+/* Error Styling */
+.error {
+    color: red;
+    font-size: 0.9rem;
+}
+
+/* Responsive Styling */
+/* @media (max-width: 600px) {
+    .cart-items li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cart-items li img {
+        margin-bottom: 10px;
+    }
+} */
+
     </style>
 </head>
 
@@ -171,30 +262,53 @@
         <div class="cart-items">
             <% if (cart.length===0) { %>
                 <p>Your cart is currently empty.</p>
-                <% } else { %>
-                    <ul>
-                        <% cart.forEach(item=> { %>
-                            <li>
-                                <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
-                                <div class="product-details">
-                                    <h3>
-                                        <%= item.name %>
-                                    </h3>
-                                    <p>Price: ₹<%= item.price %>
-                                    </p>
-                                </div>
-                                <form action="/remove-from-cart" method="POST">
-                                    <input type="hidden" name="productId" value="<%= item.id %>">
-                                    <button type="submit">Remove</button>
-                                </form>
-                            </li>
-                            <% }) %>
-                    </ul>
-                    <div class="cart-total">
-                        <p>Total: ₹<%= cart.reduce((acc, item)=> acc + item.price, 0) %></p>
-                        <button id="checkout-button">Checkout</button>
+            <% } else { %>
+                <ul>
+                    <% cart.forEach(item => { %>
+                        <li>
+                            <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                            <div class="product-details">
+                                <h3><%= item.name %></h3>
+                                <p>Price: ₹<%= item.price %></p>
+                            </div>
+                            <form action="/remove-from-cart" method="POST">
+                                <input type="hidden" name="productId" value="<%= item.id %>">
+                                <button type="submit">Remove</button>
+                            </form>
+                        </li>
+                    <% }) %>
+                </ul>
+                
+                <form id="user-details-form">
+                    <div>
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        <span class="error" id="name-error"></span>
                     </div>
-                    <% } %>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <span class="error" id="email-error"></span>
+                        <p class="email-info">Please enter a valid email address. Your purchase order will be sent to this email. If the email is incorrect, you will not receive your order confirmation.</p>
+                    </div>
+                    
+                    <div>
+                        <label for="contact">Contact:</label>
+                        <input type="text" id="contact" name="contact" required pattern="[0-9]{10}">
+                        <span class="error" id="contact-error"></span>
+                    </div>
+                    <div>
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="address" required>
+                        <span class="error" id="address-error"></span>
+                    </div>
+                </form>
+
+                <div class="cart-total">
+                    <p>Total: ₹<%= cart.reduce((acc, item) => acc + item.price, 0) %></p>
+                    <button id="checkout-button">Checkout</button>
+                </div>
+            <% } %>
         </div>
     </main>
     <footer hidden>
@@ -203,32 +317,76 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         document.getElementById('checkout-button').addEventListener('click', async () => {
-            const response = await fetch('/create-order', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            const order = await response.json();
+            const form = document.getElementById('user-details-form');
+            const formData = new FormData(form);
 
-            const options = {
-                key: 'rzp_test_iZNBELNqkzg7fM',
-                amount: order.amount,
-                currency: order.currency,
-                name: 'IMP-store',
-                description: 'Test Transaction',
-                order_id: order.id,
-                handler: function (response) {
-                    fetch('/payment-callback', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(response)
-                    })
+            const userDetails = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                contact: formData.get('contact'),
+                address: formData.get('address')
+            };
+
+            // Form validation
+            let valid = true;
+            if (!userDetails.name) {
+                document.getElementById('name-error').textContent = 'Name is required';
+                valid = false;
+            } else {
+                document.getElementById('name-error').textContent = '';
+            }
+            if (!userDetails.email || !/^\S+@\S+\.\S+$/.test(userDetails.email)) {
+                document.getElementById('email-error').textContent = 'Valid email is required';
+                valid = false;
+            } else {
+                document.getElementById('email-error').textContent = '';
+            }
+            if (!userDetails.contact || !/^\d{10}$/.test(userDetails.contact)) {
+                document.getElementById('contact-error').textContent = 'Valid 10-digit contact number is required';
+                valid = false;
+            } else {
+                document.getElementById('contact-error').textContent = '';
+            }
+            if (!userDetails.address) {
+                document.getElementById('address-error').textContent = 'Address is required';
+                valid = false;
+            } else {
+                document.getElementById('address-error').textContent = '';
+            }
+
+            if (!valid) return;
+
+            try {
+                const response = await fetch('/create-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userDetails)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const orderData = await response.json();
+                const options = {
+                    key: 'rzp_test_iZNBELNqkzg7fM',  // Your Razorpay key
+                    amount: orderData.amount,
+                    currency: orderData.currency,
+                    name: 'IMP-store',
+                    description: 'Test Transaction',
+                    order_id: orderData.order_id,
+                    handler: function (response) {
+                        fetch('/payment-callback', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ ...response, userDetails })
+                        })
                         .then(response => response.json())
                         .then(data => {
-                            // Always redirect to payment-success page with purchased items
                             return fetch('/payment-success', {
                                 method: 'POST',
                                 headers: {
@@ -242,27 +400,34 @@
                             document.open();
                             document.write(html);
                             document.close();
-                        })
-                        // .catch(error => {
-                        //     console.error('Payment processing error:', error);
-                        //     alert('Payment failed! Please try again later.');
-                        // });
-                },
-                prefill: {
-                    name: 'John Doe',
-                    email: 'john.doe@example.com',
-                    contact: '9999999999'
-                },
-                theme: {
-                    color: '#3399cc'
-                }
-            };
+                        });
+                    },
+                    prefill: {
+                        name: userDetails.name,
+                        email: userDetails.email,
+                        contact: userDetails.contact
+                    },
+                    theme: {
+                        color: '#3399cc'
+                    }
+                };
 
-            const rzp1 = new Razorpay(options);
-            rzp1.open();
+                const rzp1 = new Razorpay(options);
+                rzp1.on('payment.failed', function (response) {
+                    alert(response.error.code);
+                    alert(response.error.description);
+                    alert(response.error.source);
+                    alert(response.error.step);
+                    alert(response.error.reason);
+                    alert(response.error.metadata.order_id);
+                    alert(response.error.metadata.payment_id);
+                });
+
+                rzp1.open();
+            } catch (error) {
+                console.error('Error:', error);
+            }
         });
-
-
     </script>
 </body>
 
