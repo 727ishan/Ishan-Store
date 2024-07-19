@@ -21,6 +21,7 @@
     "mongoose": "^8.5.1",
     "mysql2": "^3.10.3",
     "nodemailer": "^6.9.14",
+    "puppeteer": "^22.13.1",
     "razorpay": "^2.9.4",
     "uuid": "^10.0.0"
   },

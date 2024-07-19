@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const Razorpay = require('razorpay');
 const mongoose = require('mongoose');
-const nodemailer = require('nodemailer'); 
+const nodemailer = require('nodemailer'); // Import nodemailer
 
 mongoose.connect('mongodb://localhost:27017/i-store', { useNewUrlParser: true, useUnifiedTopology: true });
 
