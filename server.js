@@ -2,20 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const Razorpay = require('razorpay');
-const mongoose = require('mongoose');
-const nodemailer = require('nodemailer'); // Import nodemailer
-
-mongoose.connect('mongodb+srv://ishansinghchouhan0:m8ZuE4LHmVOHpRHz@cluster0.bevtv4v.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
-
-const orderSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    contact: String,
-    address: String,
-    purchasedItems: Array
-});
-
-const Order = mongoose.model('Order', orderSchema);
+const nodemailer = require('nodemailer'); // nodemailer for mail
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -102,16 +89,7 @@ app.post('/payment-callback', async (req, res) => {
     const purchasedItems = [...cart]; 
     cart.length = 0; // Clear the cart after purchase
 
-    // Save order details to MongoDB
-    const newOrder = new Order({
-        ...paymentDetails.userDetails,
-        purchasedItems: purchasedItems
-    });
-
     try {
-        await newOrder.save();
-        console.log('Order saved:', newOrder);
-
         // Send email to user
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -123,12 +101,12 @@ app.post('/payment-callback', async (req, res) => {
 
         const mailOptions = {
             from: 'ishansinghchouhan0@gmail.com',
-            to: newOrder.email,
+            to: paymentDetails.userDetails.email,
             subject: 'Your Purchase Details',
             html: `
                 <div style="font-family: Arial, sans-serif; color: #333;">
                     <h1 style="color: #4CAF50;">Thank You for Your Purchase!</h1>
-                    <p>Dear ${newOrder.name},</p>
+                    <p>Dear ${paymentDetails.userDetails.name},</p>
                     <p>We appreciate your business. Here are the details of your purchase:</p>
                     <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
                         <thead>
@@ -171,7 +149,6 @@ app.post('/payment-callback', async (req, res) => {
             `
         };
 
-
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.error('Error sending email:', error);
@@ -181,14 +158,11 @@ app.post('/payment-callback', async (req, res) => {
             res.status(200).json({ success: paymentSuccessful, purchasedItems });
         });
     } catch (error) {
-        console.error('Error saving order:', error);
-        res.status(500).send('Error saving order. Please try again later.');
+        console.error('Error processing payment callback:', error);
+        res.status(500).send('Error processing payment callback. Please try again later.');
     }
 });
 
-mongoose.connection.once('open', () => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
