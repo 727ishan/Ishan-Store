@@ -135,14 +135,14 @@ app.post('/payment-callback', async (req, res) => {
                     <p>If you have any questions or need further assistance, feel free to reply to this email.</p>
                     <p>Best regards,<br>Ishan Music Production Team</p>
                     <p style="margin-top: 20px;">
-                        <a href="https://727ishan.github.io/IshanMusicProduction/index.html" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
+                        <a href="https://ishanmusic.onrender.com" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
                             Return to IshanSite
                         </a>
                     </p>
                     <footer style="margin-top: 20px; padding-top: 10px; border-top: 1px solid #ddd;">
                         <p style="font-size: 0.9em; color: #555;">
                             © 2024 Ishan Singh Chouhan. All rights reserved.<br>
-                            Visit our <a href="https://727ishan.github.io/IshanMusicProduction/index.html" style="color: #4CAF50; text-decoration: none;">Homepage</a> for more amazing products.
+                            Visit our <a href="https://ishanmusic.onrender.com" style="color: #4CAF50; text-decoration: none;">Homepage</a> for more amazing products.
                         </p>
                     </footer>
                 </div>
